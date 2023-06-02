@@ -26,16 +26,16 @@ public class Player extends SmoothMover
         }
         
         if(Greenfoot.isKeyDown("w")){
-            setLocation(getExactX()-2, getExactY());
+            setLocation(getExactX(), getExactY()-2);
         }
         if(Greenfoot.isKeyDown("a")){
-            
+            setLocation(getExactX()-2, getExactY());
         }
         if(Greenfoot.isKeyDown("s")){
-            
+            setLocation(getExactX(), getExactY()+2);
         }
         if(Greenfoot.isKeyDown("d")){
-            
+            setLocation(getExactX()+2, getExactY());
         }
     }
     
