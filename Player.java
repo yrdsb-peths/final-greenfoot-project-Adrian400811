@@ -24,8 +24,9 @@ public class Player extends SmoothMover
         if(m != null){
             turnTowards(m.getX(), m.getY());
         }
+        
         if(Greenfoot.isKeyDown("w")){
-            setLocation(getExactY()-2, getExactX());
+            setLocation(getExactX()-2, getExactY());
         }
         if(Greenfoot.isKeyDown("a")){
             
