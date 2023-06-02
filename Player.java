@@ -18,18 +18,15 @@ public class Player extends SmoothMover
         setImage(tank);
     }
     
-    /**
-     * Act - do whatever the player wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void act()
     {
         MouseInfo m = Greenfoot.getMouseInfo();
         if(m != null){
-            turnTowards(m);
+            turnTowards(m.getX(), m.getY());
         }
+        
         if(Greenfoot.isKeyDown("w")){
-            
+            setLocation(getExactX()-2, getExactY());
         }
         if(Greenfoot.isKeyDown("a")){
             
@@ -46,13 +43,14 @@ public class Player extends SmoothMover
      * TurnTowards - make the object turn to a specific angle 
      * using trigonometry
      */
-    public void turnTowards (MouseInfo mi){
-        turnTowards(mi.getX(), mi.getY());
-    }
-    public void turnTowards (int x, int y){
-        double dx = x - getX();
-        double dy = y - getY();
-        double angle = Math.atan2(dy,dx)*180.0/Math.PI;
-        setRotation( (int)angle );
-    }   
+    // public void turnTowards (MouseInfo mi){
+        // turnTowards(mi.getX(), mi.getY());
+    // }
+    
+    // public void turnTowards (int x, int y){
+        // double dx = x - getExactX();
+        // double dy = y - getExactY();
+        // double angle = Math.atan2(dy,dx)*180.0/Math.PI;
+        // setRotation( (int)angle );
+    // }   
 }
