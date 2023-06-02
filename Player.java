@@ -29,7 +29,7 @@ public class Player extends SmoothMover
             turnTowards(m);
         }
         if(Greenfoot.isKeyDown("w")){
-            
+            setLocation(getExactY()-2, getExactX());
         }
         if(Greenfoot.isKeyDown("a")){
             
@@ -50,8 +50,8 @@ public class Player extends SmoothMover
         turnTowards(mi.getX(), mi.getY());
     }
     public void turnTowards (int x, int y){
-        double dx = x - getX();
-        double dy = y - getY();
+        double dx = x - getExactX();
+        double dy = y - getExactY();
         double angle = Math.atan2(dy,dx)*180.0/Math.PI;
         setRotation( (int)angle );
     }   
