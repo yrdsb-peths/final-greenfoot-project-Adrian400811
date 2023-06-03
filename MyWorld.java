@@ -11,6 +11,7 @@ public class MyWorld extends World
     private boolean gameEnded = false;
     Label youDied = new Label("You Died", 80);
     Label restart = new Label("Press R to restart", 40);
+    Label autoShoot = new Label("Autoshoot",20);
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -35,8 +36,12 @@ public class MyWorld extends World
             for(int i = 0; i < 10; i++){
             Shape sp = new Square();
             addObject(sp, getRandomNumber(80,1200), getRandomNumber(20,700));
+            }
         }
-        }
+        AngleDummy ang = new AngleDummy();
+        addObject(ang, getWidth()/2, getHeight()/2);
+        Player tk = (Player) getObjects(Player.class);
+        tk.rotateTank(ang.getMouseAngle());
     }
     public void gameOver(){
         addObject(youDied, getWidth()/2, getHeight()/2);
@@ -56,5 +61,12 @@ public class MyWorld extends World
     {  
        int normal = Greenfoot.getRandomNumber(end-start+1);
        return normal+start;
+    }
+    public void printAutoMode(boolean mode){
+        if(mode){
+            addObject(autoShoot, getWidth()-400, 100);
+        } else {
+            removeObject(autoShoot);
+        }
     }
 }
