@@ -20,6 +20,10 @@ public class Shape extends Actor
             MyWorld world = (MyWorld) getWorld();
             hp += -1;
         }
+        if(isTouching(Bullet.class) ) { 
+            MyWorld world = (MyWorld) getWorld();
+            hp += -1;
+        }
         if(hp <= 0){
             MyWorld world = (MyWorld) getWorld();
             world.removeObject(this);

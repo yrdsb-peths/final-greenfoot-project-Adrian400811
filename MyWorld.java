@@ -30,6 +30,13 @@ public class MyWorld extends World
             Greenfoot.setWorld(nWorld);
             gameStart();
         }
+        if(getObjects(Shape.class).size() < 40)
+        {
+            for(int i = 0; i < 10; i++){
+            Shape sp = new Square();
+            addObject(sp, getRandomNumber(80,1200), getRandomNumber(20,700));
+        }
+        }
     }
     public void gameOver(){
         addObject(youDied, getWidth()/2, getHeight()/2);

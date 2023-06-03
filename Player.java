@@ -41,6 +41,9 @@ public class Player extends SmoothMover
         if(Greenfoot.isKeyDown("d")){
             setLocation(getExactX()+speed, getExactY());
         }
+        if(Greenfoot.isKeyDown("space")){
+            shoot();
+        }
         
         // detect collusion with shapes
         if(isTouching(Shape.class) ) { 
@@ -53,5 +56,10 @@ public class Player extends SmoothMover
             world.gameOver();
             world.removeObject(this);
         }
+    }
+    public void shoot(){
+        Bullet b = new Bullet(getRotation());
+        MyWorld world = (MyWorld) getWorld();
+        world.addObject(b, this.getX(), this.getY());
     }
 }
