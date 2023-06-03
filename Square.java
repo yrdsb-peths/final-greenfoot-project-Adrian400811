@@ -8,12 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Square extends Shape
 {
-    /**
-     * Act - do whatever the Square wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
+    GreenfootImage sq = new GreenfootImage("shapes/square.png");
+    public Square(){
+        super(10);
+        sq.scale(50, 50);
+        setImage(sq);
     }
 }

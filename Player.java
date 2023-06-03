@@ -10,6 +10,8 @@ public class Player extends SmoothMover
 {
     // Import assets
     GreenfootImage tank = new GreenfootImage("DiepTank.png");
+    private int hp = 100;
+    private int speed = 2;
     /**
      * Constructor of Player class
      */
@@ -17,40 +19,39 @@ public class Player extends SmoothMover
         tank.scale(50,50);
         setImage(tank);
     }
-    
+
     public void act()
     {
+        // gun always turn to mouse
         MouseInfo m = Greenfoot.getMouseInfo();
         if(m != null){
             turnTowards(m.getX(), m.getY());
         }
         
+        // movement
         if(Greenfoot.isKeyDown("w")){
-            setLocation(getExactX(), getExactY()-2);
+            setLocation(getExactX(), getExactY()-speed);
         }
         if(Greenfoot.isKeyDown("a")){
-            setLocation(getExactX()-2, getExactY());
+            setLocation(getExactX()-speed, getExactY());
         }
         if(Greenfoot.isKeyDown("s")){
-            setLocation(getExactX(), getExactY()+2);
+            setLocation(getExactX(), getExactY()+speed);
         }
         if(Greenfoot.isKeyDown("d")){
-            setLocation(getExactX()+2, getExactY());
+            setLocation(getExactX()+speed, getExactY());
+        }
+        
+        // detect collusion with shapes
+        if(isTouching(Shape.class) ) { 
+            hp += -1;
+        }
+        
+        // end game if hp = 0
+        if(hp <= 0){
+            MyWorld world = (MyWorld) getWorld();
+            world.gameOver();
+            world.removeObject(this);
         }
     }
-    
-    /**
-     * TurnTowards - make the object turn to a specific angle 
-     * using trigonometry
-     */
-    // public void turnTowards (MouseInfo mi){
-        // turnTowards(mi.getX(), mi.getY());
-    // }
-    
-    // public void turnTowards (int x, int y){
-        // double dx = x - getExactX();
-        // double dy = y - getExactY();
-        // double angle = Math.atan2(dy,dx)*180.0/Math.PI;
-        // setRotation( (int)angle );
-    // }   
 }

@@ -1,19 +1,32 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Shape here.
+ * Shapes are what the player shoot at to get experience points and upgrade
+ * points.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Adrian Lee 
+ * @version W1 Jun 2023
  */
 public class Shape extends Actor
 {
-    /**
-     * Act - do whatever the Shape wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private int hp;
+    public Shape(int thp){
+        hp = thp;
+    }
     public void act()
     {
         // Add your action code here.
+        if(isTouching(Player.class) ) { 
+            MyWorld world = (MyWorld) getWorld();
+            hp += -1;
+        }
+        if(hp <= 0){
+            MyWorld world = (MyWorld) getWorld();
+            world.removeObject(this);
+        }
+    }
+    public void clearAll(){
+        MyWorld world = (MyWorld) getWorld();
+        world.removeObject(this);
     }
 }

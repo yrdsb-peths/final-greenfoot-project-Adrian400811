@@ -8,12 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Pentagon extends Shape
 {
-    /**
-     * Act - do whatever the Pentagon wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
+    GreenfootImage pt = new GreenfootImage("shapes/pentagon.png");
+    public Pentagon(){
+        super(20);
+        pt.scale(50, 50);
+        setImage(pt);
     }
 }
