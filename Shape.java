@@ -12,6 +12,7 @@ public class Shape extends Actor
     private int hp;
     public Shape(int thp){
         hp = thp;
+        setRotation(Greenfoot.getRandomNumber(359));
     }
     public void act()
     {
@@ -28,9 +29,5 @@ public class Shape extends Actor
             MyWorld world = (MyWorld) getWorld();
             world.removeObject(this);
         }
-    }
-    public void clearAll(){
-        MyWorld world = (MyWorld) getWorld();
-        world.removeObject(this);
     }
 }

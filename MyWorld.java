@@ -40,8 +40,8 @@ public class MyWorld extends World
         }
         AngleDummy ang = new AngleDummy();
         addObject(ang, getWidth()/2, getHeight()/2);
-        Player tk = (Player) getObjects(Player.class);
-        tk.rotateTank(ang.getMouseAngle());
+        // Player tk = (Player) getObjects(Player.class);
+        // tk.rotateTank(ang.getMouseAngle());
     }
     public void gameOver(){
         addObject(youDied, getWidth()/2, getHeight()/2);
