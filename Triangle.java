@@ -11,6 +11,7 @@ public class Triangle extends Shape
     GreenfootImage tr = new GreenfootImage("shapes/triangle.png");
     public Triangle(){
         super(15);
+        tr.scale(50, 50);
         setImage(tr);
     }
 }
