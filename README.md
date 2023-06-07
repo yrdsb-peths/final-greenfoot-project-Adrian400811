@@ -2,13 +2,13 @@
 This project is a horrible spinoff of diep.io, made with Greenfoot.
 
 ## Project Status
-The project is still in development and has nothing except a movable player.
-The game is currently not playable.
+The project has a working playable character, destroyable objects, and health and experience system.
+The project is currently having no goal.
+There is no level limit.
 
 ## Planning
-1. Add Objects, like squares, triangles and pentagons in diep.io
-2. Add experience system for level
-3. Add upgrade points and upgrades
+1. Add upgrade system
+2. Add final goal
 
 ## How to play
 wasd to move  
