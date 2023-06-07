@@ -2,9 +2,9 @@
 This project is a horrible spinoff of diep.io, made with Greenfoot.
 
 ## Project Status
-The project has a working playable character, destroyable objects, and health and experience system.
-The project is currently having no goal.
-There is no level limit.
+The project has a working playable character, destroyable objects, and health and experience system.  
+The project is currently having no goal.  
+There is no level limit.  
 
 ## Planning
 1. Add upgrade system
