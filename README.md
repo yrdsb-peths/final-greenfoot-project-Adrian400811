@@ -11,10 +11,13 @@ The game is currently not playable.
 3. Add upgrade points and upgrades
 
 ## How to play
-wasd to move          (done)  
-move mouse to turn    (done)  
-space to shoot        (plan)  
-e to toggle autoshoot (plan)  
+wasd to move  
+move mouse to turn  
+space to shoot  
+e to toggle autoshoot  
+
+## Goal
+not designed yet
 
 ## Install
 First install Greenfoot on your machine, then clone the repository, and double-click on project.greenfoot
