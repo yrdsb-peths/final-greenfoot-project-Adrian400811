@@ -9,7 +9,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Player extends SmoothMover
 {
     // Import assets
+    SimpleTimer shootTimer = new SimpleTimer();
+    SimpleTimer modeTimer = new SimpleTimer();
     GreenfootImage tank = new GreenfootImage("DiepTank.png");
+    private boolean autoShoot = false;
+    private int hp = 100;
+    private int speed = 2;
+    private int exp = 1;
+    private int level = 0;
     /**
      * Constructor of Player class
      */
@@ -17,40 +24,80 @@ public class Player extends SmoothMover
         tank.scale(50,50);
         setImage(tank);
     }
-    
+
     public void act()
     {
+        // gun always turn to mouse
         MouseInfo m = Greenfoot.getMouseInfo();
         if(m != null){
             turnTowards(m.getX(), m.getY());
         }
         
+        // movement
         if(Greenfoot.isKeyDown("w")){
-            setLocation(getExactX(), getExactY()-2);
+            setLocation(getExactX(), getExactY()-speed);
         }
         if(Greenfoot.isKeyDown("a")){
-            setLocation(getExactX()-2, getExactY());
+            setLocation(getExactX()-speed, getExactY());
         }
         if(Greenfoot.isKeyDown("s")){
-            setLocation(getExactX(), getExactY()+2);
+            setLocation(getExactX(), getExactY()+speed);
         }
         if(Greenfoot.isKeyDown("d")){
-            setLocation(getExactX()+2, getExactY());
+            setLocation(getExactX()+speed, getExactY());
+        }
+        if(Greenfoot.isKeyDown("i")){
+            incExp(5);
+        }
+        if(shootTimer.millisElapsed() > 500 && (Greenfoot.isKeyDown("space") || autoShoot)){
+            shoot();
+            shootTimer.mark();
+        }
+        if(modeTimer.millisElapsed() > 100 &&Greenfoot.isKeyDown("e")){
+            MyWorld world = (MyWorld) getWorld();
+            if(autoShoot){
+                autoShoot = false;
+                world.printAutoMode(false);
+            } else {
+                autoShoot = true;
+                world.printAutoMode(true);
+            }
+            modeTimer.mark();
+        }
+        // detect collusion with shapes
+        if(isTouching(Shape.class) ) { 
+            hp += -1;
+            MyWorld world = (MyWorld) getWorld();
+            world.updateHpBar(this.hp);
+        }
+        
+        // end game if hp = 0
+        if(hp <= 0){
+            MyWorld world = (MyWorld) getWorld();
+            world.gameOver();
+            world.removeObject(this);
         }
     }
     
-    /**
-     * TurnTowards - make the object turn to a specific angle 
-     * using trigonometry
-     */
-    // public void turnTowards (MouseInfo mi){
-        // turnTowards(mi.getX(), mi.getY());
-    // }
+    public void shoot(){
+        Bullet b = new Bullet(getRotation());
+        MyWorld world = (MyWorld) getWorld();
+        world.addObject(b, this.getX(), this.getY());
+    }
     
-    // public void turnTowards (int x, int y){
-        // double dx = x - getExactX();
-        // double dy = y - getExactY();
-        // double angle = Math.atan2(dy,dx)*180.0/Math.PI;
-        // setRotation( (int)angle );
-    // }   
+    public void incExp(int ex){
+        if(hp<100){
+            hp += ex;
+        }else{
+            exp += ex;
+        }
+        if(exp>(100*level)){
+            level += 1;
+            exp = 0;
+        }
+        MyWorld world = (MyWorld) getWorld();
+        world.updateHpBar(hp);
+        world.updateExp(exp);
+        world.updateLv(level);
+    }
 }
