@@ -28,6 +28,7 @@ public class Shape extends Actor
         if(hp <= 0){
             MyWorld world = (MyWorld) getWorld();
             world.removeObject(this);
+            world.increaseExp(5);
         }
     }
 }

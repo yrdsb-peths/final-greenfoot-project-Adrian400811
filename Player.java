@@ -15,6 +15,8 @@ public class Player extends SmoothMover
     private boolean autoShoot = false;
     private int hp = 100;
     private int speed = 2;
+    private int exp = 1;
+    private int level = 0;
     /**
      * Constructor of Player class
      */
@@ -44,6 +46,9 @@ public class Player extends SmoothMover
         if(Greenfoot.isKeyDown("d")){
             setLocation(getExactX()+speed, getExactY());
         }
+        if(Greenfoot.isKeyDown("i")){
+            incExp(5);
+        }
         if(shootTimer.millisElapsed() > 500 && (Greenfoot.isKeyDown("space") || autoShoot)){
             shoot();
             shootTimer.mark();
@@ -62,6 +67,8 @@ public class Player extends SmoothMover
         // detect collusion with shapes
         if(isTouching(Shape.class) ) { 
             hp += -1;
+            MyWorld world = (MyWorld) getWorld();
+            world.updateHpBar(this.hp);
         }
         
         // end game if hp = 0
@@ -71,9 +78,26 @@ public class Player extends SmoothMover
             world.removeObject(this);
         }
     }
+    
     public void shoot(){
         Bullet b = new Bullet(getRotation());
         MyWorld world = (MyWorld) getWorld();
         world.addObject(b, this.getX(), this.getY());
+    }
+    
+    public void incExp(int ex){
+        if(hp<100){
+            hp += ex;
+        }else{
+            exp += ex;
+        }
+        if(exp>(100*level)){
+            level += 1;
+            exp = 0;
+        }
+        MyWorld world = (MyWorld) getWorld();
+        world.updateHpBar(hp);
+        world.updateExp(exp);
+        world.updateLv(level);
     }
 }
