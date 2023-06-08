@@ -11,7 +11,7 @@ public class Bullet extends SmoothMover
     GreenfootImage bt= new GreenfootImage("bullet.png");
     public int ang;
     public int dmg = 5;
-    public double spd = 2.00;
+    public double spd = 2.50;
     public Bullet(int tangle){
         ang = tangle;
         setImage(bt);
