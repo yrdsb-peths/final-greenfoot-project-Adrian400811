@@ -57,4 +57,28 @@ public class MyWorld extends World
        int normal = Greenfoot.getRandomNumber(end-start+1);
        return normal+start;
     }
+<<<<<<< Updated upstream
+=======
+    public void printAutoMode(boolean mode){
+        if(mode){
+            addObject(autoShoot, getWidth()-400, 100);
+        } else {
+            removeObject(autoShoot);
+        }
+    }
+    public void updateHpBar(int nhp){
+        hp.setValue(nhp);
+    }
+    public void increaseExp(int exp){
+        tk.incExp(exp);
+    }
+    public void updateExp(int exp){
+        ex.setValue(exp);
+    }
+    public void updateLv(int lvl){
+        lv.setValue("Level "+lvl);
+        ex.setMaximumValue(100*lvl);
+        hp.setMaximumValue(100+(50*(lvl-1)));
+    }
+>>>>>>> Stashed changes
 }
