@@ -26,8 +26,8 @@ public class HelpScreen extends World
         Label auto = new Label("e: toggle auto-shoot", 40);
         Label soot = new Label("space / left-click (hold): shoot bullet", 40);
         Label targ = new Label("Target", 60);
-        Label shot = new Label("Shoot objects to gain experience \nand upgrade points", 40);
-        Label upgr = new Label("Upgrade tank with upgrade points",40);
+        Label shot = new Label("Shoot objects to gain experience \nand regen health", 40);
+        Label upgr = new Label("Upgrade every level",40);
         Label tank = new Label("New tank every lv 15", 40);
         
         // Put label entries to suitable places

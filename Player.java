@@ -15,8 +15,18 @@ public class Player extends SmoothMover
     private boolean autoShoot = false;
     private int hp = 100;
     private int speed = 2;
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
     private int exp = 1;
     private int level = 0;
+    private double bulSpeed = 2.50;
+    private int shootInterval = 500;
+>>>>>>> Stashed changes
+=======
+    private int exp = 1;
+    private int level = 0;
+>>>>>>> 4d9aac2b06b7a7e075b102b7593b8119ecd7fc17
     /**
      * Constructor of Player class
      */
@@ -46,6 +56,17 @@ public class Player extends SmoothMover
         if(Greenfoot.isKeyDown("d")){
             setLocation(getExactX()+speed, getExactY());
         }
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+        if(Greenfoot.isKeyDown("space")){
+=======
+        if(Greenfoot.isKeyDown("i")){
+            incExp(5);
+        }
+        if(shootTimer.millisElapsed() > shootInterval && (Greenfoot.isKeyDown("space") || autoShoot)){
+>>>>>>> Stashed changes
+            shoot();
+=======
         if(Greenfoot.isKeyDown("i")){
             incExp(5);
         }
@@ -63,6 +84,7 @@ public class Player extends SmoothMover
                 world.printAutoMode(true);
             }
             modeTimer.mark();
+>>>>>>> 4d9aac2b06b7a7e075b102b7593b8119ecd7fc17
         }
         // detect collusion with shapes
         if(isTouching(Shape.class) ) { 
@@ -80,13 +102,21 @@ public class Player extends SmoothMover
     }
     
     public void shoot(){
-        Bullet b = new Bullet(getRotation());
+        Bullet b = new Bullet(getRotation(), bulSpeed);
         MyWorld world = (MyWorld) getWorld();
         world.addObject(b, this.getX(), this.getY());
     }
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+    
+    public void incExp(int ex){
+        if(hp < 100+(50*(level-1))){
+=======
     
     public void incExp(int ex){
         if(hp<100){
+>>>>>>> 4d9aac2b06b7a7e075b102b7593b8119ecd7fc17
             hp += ex;
         }else{
             exp += ex;
@@ -94,10 +124,21 @@ public class Player extends SmoothMover
         if(exp>(100*level)){
             level += 1;
             exp = 0;
+<<<<<<< HEAD
+            hp += 25;
+            speed += 1;
+            bulSpeed += 1.50;
+            shootInterval = shootInterval/4*3;
+=======
+>>>>>>> 4d9aac2b06b7a7e075b102b7593b8119ecd7fc17
         }
         MyWorld world = (MyWorld) getWorld();
         world.updateHpBar(hp);
         world.updateExp(exp);
         world.updateLv(level);
     }
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+>>>>>>> 4d9aac2b06b7a7e075b102b7593b8119ecd7fc17
 }
