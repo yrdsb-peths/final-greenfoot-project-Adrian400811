@@ -73,11 +73,6 @@ public class MyWorld extends World
        int normal = Greenfoot.getRandomNumber(end-start+1);
        return normal+start;
     }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> 4d9aac2b06b7a7e075b102b7593b8119ecd7fc17
     public void printAutoMode(boolean mode){
         if(mode){
             addObject(autoShoot, getWidth()-400, 100);
@@ -97,11 +92,7 @@ public class MyWorld extends World
     public void updateLv(int lvl){
         lv.setValue("Level "+lvl);
         ex.setMaximumValue(100*lvl);
-<<<<<<< HEAD
         hp.setMaximumValue(100+(50*(lvl-1)));
     }
->>>>>>> Stashed changes
-=======
-    }
->>>>>>> 4d9aac2b06b7a7e075b102b7593b8119ecd7fc17
 }
+
