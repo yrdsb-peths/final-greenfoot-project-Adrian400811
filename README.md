@@ -7,8 +7,7 @@ The project is currently having no goal.
 There is no level limit.  
 
 ## Planning
-1. Add upgrade system
-2. Add final goal
+? we don't plan here
 
 ## How to play
 wasd to move  
@@ -17,10 +16,13 @@ space to shoot
 e to toggle autoshoot  
 
 ## Goal
-not designed yet
+Freeplay: no ending
+Challenge mode: reach lv10 with shortest time
 
 ## Install
-First install Greenfoot on your machine, then clone the repository, and double-click on project.greenfoot
+1. Install Greenfoot on your machine
+2. Clone the repository
+3. Double-click on project.greenfoot
 
 ## Standalone jar
 Later in release page, not now.
