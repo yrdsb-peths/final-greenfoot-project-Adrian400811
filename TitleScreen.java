@@ -20,12 +20,14 @@ public class TitleScreen extends World
         // Create label entries
         Label title = new Label("A Horrible Copy of diep.io", 70);
         Label start = new Label("Press Space to Start", 30);
+        Label startC = new Label("Press C to Start in Challenge Mode", 30);
         Label help = new Label("Press h for Help",30);
         
         // Put label entries in suitable places
         addObject(title, getWidth()/2, getHeight()/2);
         addObject(start, getWidth()/2, getHeight()/2+100);
-        addObject(help, getWidth()/2, getHeight()/2+150);
+        addObject(startC, getWidth()/2, getHeight()/2+150);
+        addObject(help, getWidth()/2, getHeight()/2+200);
     }
     public void act(){
         // Detect keys
@@ -34,7 +36,11 @@ public class TitleScreen extends World
             Greenfoot.setWorld(tutWorld);
         }
         if(Greenfoot.isKeyDown("space")){  // Start game if "space" is pressed
-            MyWorld gameWorld = new MyWorld();
+            MyWorld gameWorld = new MyWorld(true);
+            Greenfoot.setWorld(gameWorld);
+        }
+        if(Greenfoot.isKeyDown("c")){  // Start game if "space" is pressed
+            MyWorld gameWorld = new MyWorld(false);
             Greenfoot.setWorld(gameWorld);
         }
     }
