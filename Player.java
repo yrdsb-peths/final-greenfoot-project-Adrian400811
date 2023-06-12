@@ -19,6 +19,7 @@ public class Player extends SmoothMover
     private int level = 0;
     private double bulSpeed = 2.50;
     private int shootInterval = 500;
+    private boolean freeplay = true;
 
     /**
      * Constructor of Player class
@@ -27,10 +28,16 @@ public class Player extends SmoothMover
         tank.scale(50,50);
         setImage(tank);
     }
-
+    public Player(boolean free){
+        tank.scale(50,50);
+        setImage(tank);
+        freeplay = free;
+    }
     public void act()
     {
         // gun always turn to mouse
+        MyWorld world = (MyWorld) getWorld();
+        freeplay = world.getMode();
         MouseInfo m = Greenfoot.getMouseInfo();
         if(m != null){
             turnTowards(m.getX(), m.getY());
@@ -57,7 +64,6 @@ public class Player extends SmoothMover
             shootTimer.mark();
         }
         if(modeTimer.millisElapsed() > 100 &&Greenfoot.isKeyDown("e")){
-            MyWorld world = (MyWorld) getWorld();
             if(autoShoot){
                 autoShoot = false;
                 world.printAutoMode(false);
@@ -70,13 +76,11 @@ public class Player extends SmoothMover
         // detect collusion with shapes
         if(isTouching(Shape.class) ) { 
             hp += -1;
-            MyWorld world = (MyWorld) getWorld();
             world.updateHpBar(this.hp);
         }
         
         // end game if hp = 0
         if(hp <= 0){
-            MyWorld world = (MyWorld) getWorld();
             world.gameOver();
             world.removeObject(this);
         }
@@ -103,6 +107,9 @@ public class Player extends SmoothMover
             shootInterval = shootInterval/4*3;
         }
         MyWorld world = (MyWorld) getWorld();
+        if(!freeplay && level > 10){
+            world.targetReached();
+        }
         world.updateHpBar(hp);
         world.updateExp(exp);
         world.updateLv(level);
