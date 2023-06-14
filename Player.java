@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Player class of the game
@@ -8,21 +8,12 @@ import greenfoot.*;
  */
 public class Player extends SmoothMover
 {
-    private static final int TANK_SIZE = 50;
-    private static final int MAX_HP = 100;
-    private static final int HP_INCREASE_PER_LEVEL = 50;
-    private static final int EXP_PER_LEVEL = 100;
-    private static final int HP_INCREASE_PER_EXP = 25;
-    private static final int SPEED_INCREASE_PER_LEVEL = 1;
-    private static final double BULLET_SPEED_INCREASE_PER_LEVEL = 1.50;
-    private static final int SHOOT_INTERVAL_DECREASE_PER_LEVEL = 4;
-    private static final int SHOOT_INTERVAL_DIVISOR = 3;
-
-    private SimpleTimer shootTimer = new SimpleTimer();
-    private SimpleTimer modeTimer = new SimpleTimer();
-    private GreenfootImage tankImage;
+    // Import assets
+    SimpleTimer shootTimer = new SimpleTimer();
+    SimpleTimer modeTimer = new SimpleTimer();
+    GreenfootImage tank = new GreenfootImage("DiepTank.png");
     private boolean autoShoot = false;
-    private int hp = MAX_HP;
+    private int hp = 100;
     private int speed = 2;
     private int exp = 1;
     private int level = 0;
@@ -33,139 +24,94 @@ public class Player extends SmoothMover
     /**
      * Constructor of Player class
      */
-    public Player() {
-        tankImage = new GreenfootImage("DiepTank.png");
-        tankImage.scale(TANK_SIZE, TANK_SIZE);
-        setImage(tankImage);
+    public Player(){
+        tank.scale(50,50);
+        setImage(tank);
     }
-
-    public Player(boolean freeplay) {
-        this();
-        this.freeplay = freeplay;
+    public Player(boolean free){
+        tank.scale(50,50);
+        setImage(tank);
+        freeplay = free;
     }
-
-    public void act() {
-        MyWorld world = getMyWorld();
-
-        updateTankRotation();
-        handleMovement();
-        handleShooting();
-        handleModeChange();
-        handleCollision(world);
-
-        checkGameOver(world);
-    }
-
-    private void updateTankRotation() {
-        MouseInfo mouse = Greenfoot.getMouseInfo();
-        if (mouse != null) {
-            turnTowards(mouse.getX(), mouse.getY());
+    public void act()
+    {
+        // gun always turn to mouse
+        MyWorld world = (MyWorld) getWorld();
+        freeplay = world.getMode();
+        MouseInfo m = Greenfoot.getMouseInfo();
+        if(m != null){
+            turnTowards(m.getX(), m.getY());
         }
-    }
-
-    private void handleMovement() {
-        if (Greenfoot.isKeyDown("w")) {
-            setLocation(getExactX(), getExactY() - speed);
+        
+        // movement
+        if(Greenfoot.isKeyDown("w")){
+            setLocation(getExactX(), getExactY()-speed);
         }
-        if (Greenfoot.isKeyDown("a")) {
-            setLocation(getExactX() - speed, getExactY());
+        if(Greenfoot.isKeyDown("a")){
+            setLocation(getExactX()-speed, getExactY());
         }
-        if (Greenfoot.isKeyDown("s")) {
-            setLocation(getExactX(), getExactY() + speed);
+        if(Greenfoot.isKeyDown("s")){
+            setLocation(getExactX(), getExactY()+speed);
         }
-        if (Greenfoot.isKeyDown("d")) {
-            setLocation(getExactX() + speed, getExactY());
+        if(Greenfoot.isKeyDown("d")){
+            setLocation(getExactX()+speed, getExactY());
         }
-    }
-
-    private void handleShooting() {
-        if (shootTimer.millisElapsed() > shootInterval && (Greenfoot.isKeyDown("space") || autoShoot)) {
+        if(Greenfoot.isKeyDown("i")){
+            incExp(5);
+        }
+        if(shootTimer.millisElapsed() > shootInterval && (Greenfoot.isKeyDown("space") || autoShoot)){
             shoot();
             shootTimer.mark();
         }
-    }
-
-    private void handleModeChange() {
-        if (modeTimer.millisElapsed() > 100 && Greenfoot.isKeyDown("e")) {
-            MyWorld world = getMyWorld();
-            autoShoot = !autoShoot;
-            world.printAutoMode(autoShoot);
+        if(modeTimer.millisElapsed() > 100 &&Greenfoot.isKeyDown("e")){
+            if(autoShoot){
+                autoShoot = false;
+                world.printAutoMode(false);
+            } else {
+                autoShoot = true;
+                world.printAutoMode(true);
+            }
             modeTimer.mark();
         }
-    }
-
-    private void handleCollision(MyWorld world) {
-        if (isTouching(Shape.class)) {
-            hp--;
-            world.updateHpBar(hp);
+        // detect collusion with shapes
+        if(isTouching(Shape.class) ) { 
+            hp += -1;
+            world.updateHpBar(this.hp);
         }
-    }
-
-    private void checkGameOver(MyWorld world) {
-        if (hp <= 0) {
+        
+        // end game if hp = 0
+        if(hp <= 0){
             world.gameOver();
             world.removeObject(this);
         }
     }
-
-    private void shoot() {
-        Bullet bullet = new Bullet(getRotation(), bulSpeed);
-        MyWorld world = getMyWorld();
-        world.addObject(bullet, getX(), getY());
+    
+    public void shoot(){
+        Bullet b = new Bullet(getRotation(), bulSpeed);
+        MyWorld world = (MyWorld) getWorld();
+        world.addObject(b, this.getX(), this.getY());
     }
 
-    public void increaseExperience(int expIncrease) {
-        if (hp < MAX_HP + (HP_INCREASE_PER_LEVEL * level)) {
-            hp += expIncrease;
-        } else {
-            exp += expIncrease;
+    public void incExp(int ex){
+        if(hp < 100+(50*(level-1))){
+            hp += ex;
+        }else{
+            exp += ex;
         }
-        if (exp > (EXP_PER_LEVEL * level)) {
-            level++;
+        if(exp>(100*level)){
+            level += 1;
             exp = 0;
-            hp += HP_INCREASE_PER_EXP;
-            speed += SPEED_INCREASE_PER_LEVEL;
-            bulSpeed += BULLET_SPEED_INCREASE_PER_LEVEL;
-            shootInterval = shootInterval / SHOOT_INTERVAL_DECREASE_PER_LEVEL * SHOOT_INTERVAL_DIVISOR;
+            hp += 25;
+            speed += 1;
+            bulSpeed += 1.50;
+            shootInterval = shootInterval/4*3;
         }
-        MyWorld world = getMyWorld();
-        if (!freeplay && level > 10) {
+        MyWorld world = (MyWorld) getWorld();
+        if(!freeplay && level > 10){
             world.targetReached();
         }
         world.updateHpBar(hp);
         world.updateExp(exp);
         world.updateLv(level);
-    }
-
-    private MyWorld getMyWorld() {
-        return (MyWorld) getWorld();
-    }
-
-    public void setFreeplay(boolean freeplay) {
-        this.freeplay = freeplay;
-    }
-
-    public boolean isFreeplay() {
-        return freeplay;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public int getExp() {
-        return exp;
-    }
-
-    public boolean isAutoShoot() {
-        return autoShoot;
-    }
-
-    public void setAutoShoot(boolean autoShoot) {
-        this.autoShoot = autoShoot;
     }
 }
