@@ -16,8 +16,8 @@ space to shoot
 e to toggle autoshoot  
 
 ## Goal
-Freeplay: no ending
-Challenge mode: reach lv10 with shortest time
+Freeplay: no ending  
+Challenge mode: reach lv10 with shortest time  
 
 ## Install
 1. Install Greenfoot on your machine
